@@ -20,7 +20,7 @@ header{/*aqui se pinto todo el header de color azul y la imagen del resplando se
 
 header nav{
 	background: var(--pink);
-	color: #FFF;
+	color: #3a1212;
 	font-weight: bold;
 	display: flex;
 	justify-content: space-between;
