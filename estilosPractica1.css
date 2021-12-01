@@ -1,0 +1,144 @@
+﻿:root{ /*el root a lo que entiendo es como para marcar valores y usarlos mas facil en el diseño*/
+	--blue: #daf2fa;
+	--pink: #98386b;
+	--orange: #fea400;
+	--dark-pink: #945476;
+}
+body{
+	margin: 0 auto;
+	max-width: 1024px;
+	
+	
+}
+
+header{/*aqui se pinto todo el header de color azul y la imagen del resplando se pudo ver por que es blanca la imagen del resplandor y nosotros le pusimos al header un fondo azul*/
+	background: var(--blue);
+	position: relative;
+
+}
+
+
+header nav{
+	background: var(--pink);
+	color: #FFF;
+	font-weight: bold;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+}
+header nav ul{
+	padding-left: 0;
+}
+
+header nav ul li{
+	display: inline-block;
+	margin-left: 30px;
+}
+
+
+
+input[type="search"], input[type="submit"]{
+	border-radius: 5px;
+	height: 30px;
+}
+input[type="submit"]{
+	color: FFF;
+	background: var(--orange);
+	border: none;
+}
+form{
+	margin-right: 20px;
+}
+
+
+
+.img-principal{
+	width: 95%;
+	margin: 20px 0;
+	border: 5px solid #CCC;
+}
+
+.logo{ /*el . se usa para llamar a las clases y darles un diseño personalizado*/
+	position: absolute;
+	left: 120px;
+	top: 10px;
+}
+
+
+
+
+/*secciones*/
+
+.secc1 article{
+	text-align: center;
+	
+
+}
+.secc2{
+	display: flex;
+	justify-content: space-around;
+
+	
+}
+.secc2 article{
+	width: 30%;
+	
+}
+
+.secc2 p{
+	font-size: 14px;
+}
+
+.secc2 h3{
+	font-size: 40px;
+	margin: 0;
+
+}
+/*editar Botones */
+.secc2 button{
+	padding: 5px 12px;
+	color: var(--orange);
+	background: #FFF;
+	border: 1px solid var(--orange);
+	border-radius: 5px;
+}
+/*editando audio y video*/
+audio, video{
+	width: 98%;
+}
+video{
+	height: 200px;
+}
+
+
+/*articulos*/
+
+
+.secc2art1 h2{
+	font-size: 52px;
+
+}
+
+/*footer el final de una pagina*/
+footer{
+	background: var(--pink);
+	color: #FFF;
+	height: 100px;
+	font-size: 35px;
+	font-weight: bold;
+	margin-top: 20px;
+	padding: 10px 10px 0;
+
+}
+
+footer div{
+	background: var(--dark-pink);
+	display: inline-block;
+	width: 32%;
+	height: 90%;
+	vertical-align: bottom;
+	border-radius: 5px;
+	
+}
+
