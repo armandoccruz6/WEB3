@@ -13,7 +13,7 @@ body{
 
 header{/*aqui se pinto todo el header de color azul y la imagen del resplando se pudo ver por que es blanca la imagen del resplandor y nosotros le pusimos al header un fondo azul*/
 	background: var(--blue);
-	position: relative;
+	position: absolute;
 
 }
 
