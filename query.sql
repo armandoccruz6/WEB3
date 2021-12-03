@@ -1,13 +1,10 @@
+
 use crud_node2
-
-
 create table generos(
 idgenero INT NOT NULL auto_increment,
 genero varchar(50) NOT NULL,
 primary key(idgenero)
 )
-
-drop table canciones
 
 create table canciones(
 idcanciones INT NOT NULL auto_increment,

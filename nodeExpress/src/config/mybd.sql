@@ -7,7 +7,7 @@ genero varchar(50) NOT NULL,
 primary key(idgenero)
 )
 
-drop table canciones
+
 
 create table canciones(
 idcanciones INT NOT NULL auto_increment,
