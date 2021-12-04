@@ -1,7 +1,11 @@
 <template>
   <div class="home">
-   <tabla :items="canciones"/>
+    <h1>cancioness</h1>
+      <b-button to="/agregarcancion" variant="outline-primary">agregar</b-button>
+
+   <tabla :items="canciones" :fields="campos"/>
   </div>
+  
 </template>
 
 <script>
@@ -12,8 +16,26 @@ export default {
   components: {
     tabla
   },
+  data(){
+    return{
+    campos: [
+      {key: "idcanciones",
+      label: "idcanciones"},
+      {key:"id_genero",
+      label:"id_genero"},
+      {key:"titulo",
+      label:"titulo"},
+      {key:"artista",
+      label:"artista"},
+      {key:"fecha",
+      label:"fecha"},
+      {key: 'actions', label: 'Acciones'}
+      
+    ],
+  }
+  },
   computed: {
-...mapState(['canciones'])
+...mapState(['canciones']),
   },
   methods: {
     ...mapActions(['setCanciones'])
