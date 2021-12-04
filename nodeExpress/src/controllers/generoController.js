@@ -40,7 +40,13 @@ function crear(req, res){//agregar
             return res.status(400).json({error: true, mensaje: "el genero es obligatorio"});
 
         }
-        
+        if(generos.genero && generos.genero.length >=50){
+
+            return res.status(400).json({error: true, mensaje: "solo se acepta un maximo de 50 caracteres"});
+
+
+
+        }
 
         let sql = "INSERT INTO generos  set ?"
         connection.query(sql, [generos], (err, rows) => {
@@ -54,9 +60,26 @@ function crear(req, res){//agregar
 
     }
 }
+function eliminar(req, res){
+    if(connection){
+        const{id} = req.params;
+        let sql = "DELETE FROM generos WHERE idgenero = ? ";
+        connection.query(sql, [id], (err,rows) =>{
+            if(err){
+                res.status(400).json(err);
+            }else {
+                let mensaje = "";
 
+                if(rows.affectedRows === 0) mensaje = "genero no encontrada";
+                else mensaje = "genero eliminado con exito";
+                res.json({error: false, data: rows, mensaje});
+            }
+        })
+    }
+}
 
 module.exports = {
     listar,    
-    crear
+    crear,
+    eliminar
 }

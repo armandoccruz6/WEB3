@@ -42,14 +42,14 @@ if(connection){
     if(!canciones.fecha){
         return res.status(400).json({error: true, mensaje:"El año es obligatorio"});
     }
-    if(!canciones.fecha && canciones.fecha.length !==4){
+    if(canciones.fecha.length !==4){
         return res.status(400).json({error: true, mensaje:"La longitud maxima de año debe ser de 4 caracteres"});
     }
-    if(!canciones.titulo && canciones.titulo.length !==50){
-        return res.status(400).json({error: true, mensaje:"La longitud maxima es de 50 caracteres"});
+    if(canciones.titulo && canciones.titulo.length >=50){
+        return res.status(400).json({error: true, mensaje:"La longitud maxima del titulo es de 50 caracteres"});
     }
-    if(!canciones.artista && canciones.artista.length !==80){
-        return res.status(400).json({error: true, mensaje:"La longitud maxima es de 80 caracteres"});
+    if(canciones.artista && canciones.artista.length >=80){
+        return res.status(400).json({error: true, mensaje:"La longitud maxima del artista es de 80 caracteres"});
     }
     let sql="INSERT INTO canciones set ?";
     connection.query(sql, [canciones], (err, rows) =>{
