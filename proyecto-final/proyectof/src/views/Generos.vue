@@ -4,7 +4,13 @@
             <b-button to="/agregargenero" variant="outline-primary">agregar</b-button>
 
 
-      <tabla :items="generos" />
+      <tabla :items="generos" :fields="campos">
+        <template slot="actionsg" slot-scope="{item}">
+            <b-button  variant="danger" size="sm">Eliminar</b-button>
+        </template>
+      </tabla>
+        
+        
   </div>
 </template>
 
@@ -16,6 +22,19 @@ export default {
     components:{
         tabla
     },
+    data(){
+    return{
+    campos: [
+      {key: "idgenero",
+      label: "idgenero"},
+      {key:"genero",
+      label:"genero"},
+
+      {key: 'actions', label: 'Acciones'}
+      
+    ],
+  }
+  },
     
     computed:{
         ...mapState(['generos']),

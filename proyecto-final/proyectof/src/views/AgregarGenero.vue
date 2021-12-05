@@ -6,7 +6,7 @@
           v-model="gene.genero"
             titulo="Genero"
             id="genero"
-            :error="true"
+            :error="erroresValidacion && !validacionNombre"
             placeholder="ingresa un genero nuevo"
             :maxlength="50"
             />
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import Input from '../components/Input.vue'
 
 export default {
@@ -31,12 +32,45 @@ export default {
         return{
             gene:{
                 genero:'',
-            }
+            },
+            erroresValidacion: false
+        }
+    },
+    computed:{
+       validacionNombre(){
+            return( this.gene.genero !==undefined &&
+            this.gene.genero.trim() !== '')
         }
     },
     methods:{
+        ...mapActions(['crearGeneros']),
+
         guardarGenero(){
-            //terminar
+ if(this.validacionNombre){
+                this.erroresValidacion=false;
+                this.crearGeneros({
+                    params: this.gene,
+                    onComplete: (response) =>{
+                    
+                        this.$notify({
+                    title:response.data.mensaje,
+                    type: 'success'
+                        });              
+                    this.$router.push({
+                    name: 'Generos'
+                });
+                    },
+                    onError:(error) =>{
+                        this.$notify({
+                    title: error.response.data.mensaje,
+                    type: 'error'
+                        });
+            },
+            });
+            }
+            else{
+                this.erroresValidacion=true;
+            }
             alert("guardar")
         }
     }

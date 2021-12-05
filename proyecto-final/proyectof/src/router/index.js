@@ -36,6 +36,12 @@ const routes = [
     
     component: () => import( '../views/AgregarGenero.vue')
   },
+  {
+    path: '/editarcancion',
+    name: 'EditarCancion',
+    
+    component: () => import( '../views/EditarCancion.vue')
+  },
 
 ]
 

@@ -1,9 +1,21 @@
 <template>
   <div class="home">
-    <h1>cancioness</h1>
+    
+        <h1>cancioness</h1>
       <b-button to="/agregarcancion" variant="outline-primary">agregar</b-button>
 
-   <tabla :items="canciones"/>
+    
+    
+   <tabla :items="canciones" :fields="campos"> 
+     <template slot="actionsm" slot-scope="{item}">
+        <b-button @click="onEditar(item)" variant="primary" size="sm" class="m-2">Editar</b-button>
+        <b-button @click="onEliminar(item)" variant="danger" size="sm">Eliminar</b-button>
+
+     </template>
+   </tabla>
+
+
+    
   </div>
   
 </template>
@@ -16,13 +28,43 @@ export default {
   components: {
     tabla
   },
+  data(){
+    return{
+    campos: [
+      {key: "idcanciones",
+      label: "idcanciones"},
+      {key:"id_genero",
+      label:"id_genero"},
+      {key:"titulo",
+      label:"titulo"},
+      {key:"artista",
+      label:"artista"},
+      {key:"fecha",
+      label:"fecha"},
+      {key: 'actions', label: 'Acciones'}
+      
+    ],
+  }
+  },
   computed: {
 ...mapState(['canciones']),
   },
   methods: {
-    ...mapActions(['setCanciones'])
+    ...mapActions(['setCanciones']),
+    onEditar(data){
+      this.$router.push({
+        name:'EditarCancion',
+        params:{
+          id: data.item.idcanciones
+        }
+      })
+    },
+    onEliminar(data){
+      alert(data.item.idcanciones)
+    }
+
   },
-  created(){
+  mounted(){
     this.setCanciones();
   }
 }

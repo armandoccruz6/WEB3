@@ -6,6 +6,7 @@
       <router-link to="/about">About</router-link>
     </div>
     <router-view class="m-4"/>
+    <notifications />
   </div>
 </template>
 
