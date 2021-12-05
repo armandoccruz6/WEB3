@@ -1,14 +1,23 @@
 <template>
   <div>
-      <h1>Agregar cancion</h1>
+      <h1>Editar Cancion</h1>
       <b-form @submit.prevent="guardarCancion">
+          <!--
           <Input
+          
           v-model="cancion.id_genero"
             titulo="genero id"
             id="id_genero"
             :error="erroresValidacion && !validacionNombre"
             placeholder="Ingrese el id al que pertenece el genero"
             :maxlength="100"
+            />
+            -->
+            <Input
+            titulo="Clave"
+            id="idcanciones"
+            :value=cancion.idcanciones
+            disabled
             />
             <Input
             v-model="cancion.titulo"
@@ -38,28 +47,26 @@
 
             
       </b-form>
-      <div>
-          <h2 class="eG">Generos que se encuentran registrados</h2>
-            <tabla :items="generos"/>
-      </div>
-  </div> 
+  </div>
 </template>
 
 <script>
+import Vue from 'vue'
 import { mapState,mapActions } from 'vuex'
 import Input from '../components/Input.vue'
 import tabla from '../components/tabla.vue'
 
 export default {
-    name: 'AgregarCancion',
+    name: 'EditarCancion',
     components: {
         Input,
-        tabla,
+        tabla
     },
     data(){
         return{
             cancion: {
-                id_genero:'',
+                //id_genero:'',
+                idcanciones:0,
                 titulo:'',
                 artista:'',
                 fecha:'',
@@ -69,18 +76,39 @@ export default {
         };
     },
     computed:{
-        ...mapState(['generos']),
+        //...mapState(['generos']),
         validacionNombre(){
             return( this.cancion.titulo !==undefined &&
             this.cancion.titulo.trim() !== '')
         }
     },
     methods:{
-        ...mapActions(['setGeneros', 'crearCanciones']),
+        ...mapActions(['obtenerCancion', "editarCancion"]),
         guardarCancion(){
             if(this.validacionNombre){
                 this.erroresValidacion=false;
-                this.crearCanciones({
+                this.editarCancion({
+                    id: this.cancion.idcanciones,
+                    params: this.cancion,
+                    onComplete:(response)=>{
+                   this.$notify({
+                       type:'success',
+                       title: response.data.mensaje
+                   });
+                   this.$router.push({
+                       name: 'Home'
+                   });
+                    },
+                    onError:(error)=>{
+                        this.$notify({
+                            type: 'error',
+                            title: error.response.data.mensaje
+                        });
+                    }
+
+                    
+                })
+                /*this.crearCanciones({
                     params: this.cancion,
                     onComplete: (response) =>{
                     
@@ -98,27 +126,27 @@ export default {
                     type: 'error'
                         });
             },
-            });
+            });*/
             }
             else{
                 this.erroresValidacion=true;
             }
-            alert("guardar")
+            
         },
         
     },
     created(){
-    
-        this.setGeneros();
+        this.obtenerCancion({
+            id: this.$route.params.id,
+            onComplete: (response)=>{
+                Vue.set(this,'cancion',response.data.data);
+            }
+        })
     }
-}
 
-
+};
 </script>
 
 <style>
-.eG{
-    font-family:  monospace;
-    color: forestgreen;
-}
+
 </style>

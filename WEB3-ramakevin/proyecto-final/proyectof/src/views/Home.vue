@@ -1,9 +1,21 @@
 <template>
   <div class="home">
-    <h1>cancioness</h1>
+    
+        <h1>cancioness</h1>
       <b-button to="/agregarcancion" variant="outline-primary">agregar</b-button>
 
-   <tabla :items="canciones" :fields="campos"/>
+    
+    
+   <tabla :items="canciones" :fields="campos"> 
+     <template slot="actionsm" slot-scope="{item}">
+        <b-button @click="onEditar(item)" variant="primary" size="sm" class="m-2">Editar</b-button>
+        <b-button @click="onEliminar(item)" variant="danger" size="sm">Eliminar</b-button>
+
+     </template>
+   </tabla>
+
+
+    
   </div>
   
 </template>
@@ -38,9 +50,44 @@ export default {
 ...mapState(['canciones']),
   },
   methods: {
-    ...mapActions(['setCanciones'])
+    ...mapActions(['setCanciones', "eliminarCancion"]),
+    onEditar(data){
+      this.$router.push({
+        name:'EditarCancion',
+        params:{
+          id: data.item.idcanciones
+        }
+      })
+    },
+    onEliminar(data){
+       this.$bvModal.msgBoxConfirm('ESTA OPCION NO SE PUEDE DESHACER', {
+          title: 'ESTAS SEGURO QUE DESEAS ELIMINAR?',
+          size: 'sm',
+          buttonSize: 'sm',
+          okVariant: 'danger',
+          okTitle: 'Aceptar',
+          cancelTitle: 'Cancelar',
+          centered: true
+        })
+          .then(value => {
+            this.eliminarCancion({
+              id: data.item.idcanciones,
+              onComplete: (response)=>{
+                this.$notify({
+                  type: 'success',
+                  title: response.data.mensaje
+                });
+                setTimeout(()=>this.setCanciones(), 1000);
+              }
+            })
+          })
+          .catch(err => {
+            // An error occurred
+          })
+    }
+
   },
-  created(){
+  mounted(){
     this.setCanciones();
   }
 }

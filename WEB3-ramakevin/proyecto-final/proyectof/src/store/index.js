@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     canciones: [],
     generos: [],
+    cancion: {},
     
   },
   mutations: {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     SET_GENEROS(state,generos){
       state.generos = generos;
+    },
+    SET_CANCION(state,cancion){
+      state.cancion = cancion;
     }
     
   },
@@ -45,8 +49,35 @@ export default new Vuex.Store({
       axios.post('http://localhost:3000/generos', params)
       .then(onComplete)
       .catch(onError)
-       }
+       },
+    obtenerCancion({commit}, {id, onComplete,onError}){
+      axios.get(`http://localhost:3000/canciones/${id}`)
+      .then(response => {
+        commit('SET_CANCION', response.data.data);
+        onComplete(response);
+
+      })
+      .catch(onError);
+    },
+    editarCancion({commit}, {id, onComplete,onError, params}){
+      axios.put(`http://localhost:3000/canciones/${id}`, params)
+      .then(onComplete)
+      .catch(onError);
+    },
+    eliminarCancion({commit}, {id, onComplete,onError}){
+      axios.delete(`http://localhost:3000/canciones/${id}`)
+      .then(onComplete)
+      .catch(onError);
+    },
+    eliminarGenero({commit}, {id, onComplete,onError}){
+      axios.delete(`http://localhost:3000/generos/${id}`)
+      .then(onComplete)
+      .catch(onError);
+    },
+
   },
+
+
   modules: {
   }
 })
