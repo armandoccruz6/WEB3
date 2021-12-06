@@ -71,7 +71,6 @@ export default {
             else{
                 this.erroresValidacion=true;
             }
-            alert("guardar")
         }
     }
 

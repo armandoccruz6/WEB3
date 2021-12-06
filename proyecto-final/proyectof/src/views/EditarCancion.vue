@@ -78,34 +78,39 @@ export default {
     computed:{
         //...mapState(['generos']),
         validacionNombre(){
-            return( this.cancion.titulo !==undefined &&
-            this.cancion.titulo.trim() !== '')
+            return( 
+                this.cancion.titulo !== undefined && this.cancion.titulo.trim() !== ''
+                
+                );
         }
     },
     methods:{
-        ...mapActions(['obtenerCancion']),
+        ...mapActions(['obtenerCancion','editarCancion']),
         guardarCancion(){
             if(this.validacionNombre){
                 this.erroresValidacion=false;
-                /*this.crearCanciones({
+                
+                this.editarCancion({
+                    id: this.cancion.idcanciones,
                     params: this.cancion,
                     onComplete: (response) =>{
-                    
                         this.$notify({
-                    title:response.data.mensaje,
-                    type: 'success'
-                        });              
-                    this.$router.push({
-                    name: 'Home'
-                });
-                    },
-                    onError:(error) =>{
-                        this.$notify({
-                    title: error.response.data.mensaje,
-                    type: 'error'
+                            type: 'success',
+                            title: response.data.mensaje
                         });
-            },
-            });*/
+
+                        this.$router.push({
+                            name: 'Home'
+                        });
+                    },
+                    onError:(error) => {
+                        this.$notify({
+                           type: 'error',
+                            title: error.response.data.mensaje,
+                            
+                        })
+                    }
+                })
             }
             else{
                 this.erroresValidacion=true;

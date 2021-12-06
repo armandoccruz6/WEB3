@@ -50,7 +50,7 @@ export default {
 ...mapState(['canciones']),
   },
   methods: {
-    ...mapActions(['setCanciones']),
+    ...mapActions(['setCanciones','eliminarCancion']),
     onEditar(data){
       this.$router.push({
         name:'EditarCancion',
@@ -60,8 +60,35 @@ export default {
       })
     },
     onEliminar(data){
-      alert(data.item.idcanciones)
-    }
+      
+        this.$bvModal.msgBoxConfirm('Esta opcion no se puede deshacer', {
+          title: '¿Quiere eliminar la cancion?',
+          size: 'sm',
+          buttonSize: 'sm',
+          okVariant: 'danger',
+          okTitle: 'Aceptar',
+          cancelTitle: 'Cancelar',
+          centered: true
+        })
+          .then(value => {
+            if(value){
+              this.eliminarCancion({
+                id: data.item.idcanciones,
+                onComplete: (response) =>{
+                  this.$notify({
+                    type: 'success',
+                    title: response.data.mensaje
+                  });
+                    setTimeout(() => this.setCanciones(), 1000);
+
+                }
+              })
+            }
+          })
+          .catch(err => {
+            // An error occurred
+          })
+       }    
 
   },
   mounted(){

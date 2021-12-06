@@ -6,7 +6,7 @@
 
       <tabla :items="generos" :fields="campos">
         <template slot="actionsg" slot-scope="{item}">
-            <b-button  variant="danger" size="sm">Eliminar</b-button>
+            <b-button @click="onEliminar(item)" variant="danger" size="sm">Eliminar</b-button>
         </template>
       </tabla>
         
@@ -40,9 +40,40 @@ export default {
         ...mapState(['generos']),
     },
     methods:{
-        ...mapActions(['setGeneros'])
+        ...mapActions(['setGeneros','eliminarGenero']),
+        onEliminar(data){
+
+          this.$bvModal.msgBoxConfirm('Esta opcion no se puede deshacer', {
+          title: '¿Quiere eliminar el genero?',
+          size: 'sm',
+          buttonSize: 'sm',
+          okVariant: 'danger',
+          okTitle: 'Aceptar',
+          cancelTitle: 'Cancelar',
+          centered: true
+        })
+          .then(value => {
+            if(value){
+              this.eliminarGenero({
+                id: data.item.idgenero,
+                onComplete: (response) =>{
+                  this.$notify({
+                    type: 'success',
+                    title: response.data.mensaje
+                  });
+                    setTimeout(() => this.setGeneros(), 1000);
+
+                }
+              })
+            }
+          })
+          .catch(err => {
+            // An error occurred
+          })
+
+        }
     },
-    created(){
+    mounted(){
         this.setGeneros();
     }    
 

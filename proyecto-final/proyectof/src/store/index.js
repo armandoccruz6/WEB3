@@ -58,11 +58,24 @@ export default new Vuex.Store({
 
       })
       .catch(onError);
+    },
+    editarCancion({commit}, {id, params, onComplete, onError}){
+      axios.put(`http://localhost:3000/canciones/${id}`, params)
+      .then(onComplete)
+      .catch(onError);
+    },
+    eliminarCancion({commit}, {id,onComplete,onError}){
+      axios.delete(`http://localhost:3000/canciones/${id}`)
+        .then(onComplete)
+        .catch(onError)      
+    },
+    eliminarGenero({commit},{id,onComplete,onError}){
+      axios.delete(`http://localhost:3000/generos/${id}`)
+      .then(onComplete)
+      .catch(onError)
     }
 
   },
-
-
   modules: {
   }
 })
