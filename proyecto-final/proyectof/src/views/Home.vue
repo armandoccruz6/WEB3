@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import Vue from'vue'
+
 import {mapState, mapActions} from 'vuex';
 import tabla from '../components/tabla.vue'
 export default {
@@ -116,7 +116,7 @@ export default {
         */        
             this.crearFavoritas({
               id: data.item.idcanciones,
-            params:{id: this.idcanciones},
+            params:{id_canciones: data.item.idcanciones},
              //params: this.id,
             onComplete: (response) =>{
 
@@ -125,7 +125,7 @@ export default {
                   type: 'success'
                 });
                 this.$router.push({
-                  name:'favoritas'
+                  name:'Favoritas'
                 });
               },
               onError:(error)=>{

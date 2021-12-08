@@ -37,6 +37,9 @@ insert into favoritas(idcanciones,id_genero,titulo,artista,fecha) values ("2","2
 insert into canciones(id_genero,titulo,artista,fecha) values ("1","despacito","daddy yanke","2015"); 
 
 
-
+select favoritas.idfavoritas,favoritas.id_canciones,canciones.titulo,canciones.artista,canciones.fecha
+from canciones
+inner join favoritas
+on canciones.idcanciones = favoritas.id_canciones
 
 

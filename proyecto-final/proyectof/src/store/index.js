@@ -36,7 +36,7 @@ export default new Vuex.Store({
       .then(response => {
         commit('SET_CANCIONES', response.data);
       })
-      .catch(error = console.log(error))
+     // .catch(error = console.log(error))
     },
     setCancionesran({commit}){     //random 
 
@@ -44,7 +44,7 @@ export default new Vuex.Store({
       .then(response => {
         commit('SET_CANCIONESRAN', response.data);
       })
-      .catch(error = console.log(error))
+      //.catch(error = console.log(error))
     },
     setGeneros({commit}){
       
@@ -52,7 +52,7 @@ export default new Vuex.Store({
       .then(response => {
         commit('SET_GENEROS', response.data);
       })
-      .catch(error = console.log(error))
+      
       
     },
     setFavoritas({commit}){//tabla favoritassssssss
@@ -61,7 +61,7 @@ export default new Vuex.Store({
       .then(response =>{
         commit('SET_FAVORITAS', response.data);
       })
-      .catch(error = console.log(error))
+      
     },
     crearCanciones({commit}, {params, onComplete, onError}){
    axios.post('http://localhost:3000/canciones', params)
@@ -102,7 +102,12 @@ export default new Vuex.Store({
       axios.delete(`http://localhost:3000/generos/${id}`)
       .then(onComplete)
       .catch(onError)
-    }
+    },
+    eliminarFavorita({commit},{id,onComplete,onError}){
+      axios.delete(`http://localhost:3000/favoritas/${id}`)
+      .then(onComplete)
+      .catch(onError)
+    },
 
   },
   modules: {
