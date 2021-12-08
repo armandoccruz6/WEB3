@@ -46,7 +46,7 @@ export default {
         ...mapActions(['crearGeneros']),
 
         guardarGenero(){
- if(this.validacionNombre){
+                if(this.validacionNombre){
                 this.erroresValidacion=false;
                 this.crearGeneros({
                     params: this.gene,
@@ -71,7 +71,6 @@ export default {
             else{
                 this.erroresValidacion=true;
             }
-            alert("guardar")
         }
     }
 

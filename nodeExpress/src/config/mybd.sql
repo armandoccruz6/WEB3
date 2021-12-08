@@ -18,3 +18,10 @@ fecha INT(4),
 primary key(idcanciones),
 foreign key (id_genero) references generos(idgenero)
 )
+
+create table favoritas(
+idfavoritas INT NOT NULL auto_increment,
+id_canciones INT NOT NULL,
+primary key(idfavoritas),
+foreign key(id_canciones) references canciones(idcanciones)
+)

@@ -8,10 +8,14 @@ export default new Vuex.Store({
     canciones: [],
     generos: [],
     cancion: {},
+    favoritas:[],//tabla favoritassssssss
     
   },
   mutations: {
     SET_CANCIONES(state, canciones){
+      state.canciones = canciones;
+    },
+    SET_CANCIONESRAN(state, canciones){//random
       state.canciones = canciones;
     },
     SET_GENEROS(state,generos){
@@ -19,6 +23,9 @@ export default new Vuex.Store({
     },
     SET_CANCION(state,cancion){
       state.cancion = cancion;
+    },
+    SET_FAVORITAS(state,favoritas){//tabla favoritassssssss
+      state.favoritas = favoritas;
     }
     
   },
@@ -31,6 +38,14 @@ export default new Vuex.Store({
       })
       .catch(error = console.log(error))
     },
+    setCancionesran({commit}){     //random 
+
+      axios.get('http://localhost:3000/canciones')
+      .then(response => {
+        commit('SET_CANCIONESRAN', response.data);
+      })
+      .catch(error = console.log(error))
+    },
     setGeneros({commit}){
       
       axios.get(`http://localhost:3000/generos`)
@@ -39,6 +54,14 @@ export default new Vuex.Store({
       })
       .catch(error = console.log(error))
       
+    },
+    setFavoritas({commit}){//tabla favoritassssssss
+
+      axios.get(`http://localhost:3000/favoritas`)
+      .then(response =>{
+        commit('SET_FAVORITAS', response.data);
+      })
+      .catch(error = console.log(error))
     },
     crearCanciones({commit}, {params, onComplete, onError}){
    axios.post('http://localhost:3000/canciones', params)
@@ -50,6 +73,12 @@ export default new Vuex.Store({
       .then(onComplete)
       .catch(onError)
        },
+       crearFavoritas({commit}, {params, onComplete, onError}){//tabla favoritassssssss
+        axios.post(`http://localhost:3000/favoritas`, params)
+        .then(onComplete)
+        .catch(onError)
+       },
+       
     obtenerCancion({commit}, {id, onComplete,onError}){
       axios.get(`http://localhost:3000/canciones/${id}`)
       .then(response => {
@@ -58,11 +87,24 @@ export default new Vuex.Store({
 
       })
       .catch(onError);
+    },
+    editarCancion({commit}, {id, params, onComplete, onError}){
+      axios.put(`http://localhost:3000/canciones/${id}`, params)
+      .then(onComplete)
+      .catch(onError);
+    },
+    eliminarCancion({commit}, {id,onComplete,onError}){
+      axios.delete(`http://localhost:3000/canciones/${id}`)
+        .then(onComplete)
+        .catch(onError)      
+    },
+    eliminarGenero({commit},{id,onComplete,onError}){
+      axios.delete(`http://localhost:3000/generos/${id}`)
+      .then(onComplete)
+      .catch(onError)
     }
 
   },
-
-
   modules: {
   }
 })

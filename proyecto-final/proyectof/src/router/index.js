@@ -42,6 +42,18 @@ const routes = [
     
     component: () => import( '../views/EditarCancion.vue')
   },
+  {
+    path: '/favoritas',
+    name: 'Favoritas',
+    
+    component: () => import( '../views/Favoritas.vue')
+  },
+  {
+    path: '/random',
+    name: 'Random',
+    
+    component: () => import( '../views/Random.vue')
+  },
 
 ]
 

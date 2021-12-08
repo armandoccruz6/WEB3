@@ -12,6 +12,8 @@ require('./config/connection');
 
 app.use(require('./routes/cancionesRoute'));
 app.use(require('./routes/generoRoute'));
+app.use(require('./routes/favoritasRoute'));
+
 app.listen(app.get('port'), (error) =>{
     if(error){
         console.log("error:", error);

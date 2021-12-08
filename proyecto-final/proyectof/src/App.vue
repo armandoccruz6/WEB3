@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div class="barra" id="nav">
       <router-link to="/">Canciones</router-link> |
       <router-link to="/generos">Generos</router-link> |
+      <router-link to="/favoritas">Favoritas</router-link> |
+      <router-link to="/random">Random</router-link> |
       <router-link to="/about">About</router-link>
     </div>
     <router-view class="m-4"/>
@@ -25,10 +27,15 @@
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #25b312;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #dd690a;
+  
+}
+
+.barra{
+  color: rgb(255, 51, 0);
 }
 </style>

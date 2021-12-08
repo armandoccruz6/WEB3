@@ -73,8 +73,19 @@ function editar(req, res){
         if(!cancion.artista){
             return res.status(400).json({error: true, mensaje:"El artista es obligatorio"});
         }
+        if(!cancion.fecha){
+            return res.status(400).json({error: true, mensaje:"El año es obligatorio"});
+        }
+        if(cancion.titulo && cancion.titulo.length >=50){
+            return res.status(400).json({error: true, mensaje:"La longitud maxima del titulo es de 50 caracteres"});
+        }
+        if(cancion.artista && cancion.artista.length >=80){
+            return res.status(400).json({error: true, mensaje:"La longitud maxima del artista es de 80 caracteres"});
+        }        
+        
         //......................
-
+        
+        
 
         //....................
         
